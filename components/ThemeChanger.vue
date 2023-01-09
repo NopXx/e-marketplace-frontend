@@ -50,6 +50,16 @@
                 <v-avatar v-else :color="theme.light.primary" size="30">
                 </v-avatar>
               </v-list-item-action>
+              <v-list-item-action>
+                <v-avatar
+                  v-if="$vuetify.theme.themes.name === theme.name"
+                  color="secondary"
+                  size="30"
+                >
+                </v-avatar>
+                <v-avatar v-else :color="theme.light.secondary" size="30">
+                </v-avatar>
+              </v-list-item-action>
             </v-list-item>
           </v-card>
         </v-card-text>
