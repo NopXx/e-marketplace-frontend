@@ -33,7 +33,7 @@
                 เข้าสู่ระบบ
               </v-btn>
               <v-divider class="mt-3 mb-3" />
-              <v-btn to="/auth/singup" color="info" outlined width="100%">
+              <v-btn to="/auth/signup" color="info" outlined width="100%">
                 สมัครใช้งาน
               </v-btn>
             </div>
