@@ -16,10 +16,13 @@
       </v-app>
     </div>
     <v-app v-else>
-      <Bar />
+      <!-- <Bar /> -->
+      <SideBar :drawer="drawer" />
+      <RightSideBar />
       <!-- <AppBar /> -->
       <v-main>
         <v-container>
+          <Header />
           <Nuxt />
         </v-container>
       </v-main>
@@ -28,21 +31,26 @@
 </template>
 
 <script>
+import Header from '~/components/Header.vue'
 // import AppBar from '../components/AppBar.vue'
-import Bar from '../components/Bar.vue'
+import RightSideBar from '~/components/RightSideBar.vue'
+import SideBar from '~/components/SideBar.vue'
+// import Bar from '../components/Bar.vue'
 export default {
   name: 'DefaultLayout',
-  components: { Bar },
-  data () {
+  // eslint-disable-next-line vue/no-reserved-component-names
+  components: { SideBar, RightSideBar, Header },
+  data() {
     return {
-      overlay: false
+      drawer: true,
+      overlay: false,
     }
   },
-  created () {
+  created() {
     this.overlay = true
     setTimeout(() => {
       this.overlay = false
     }, 1500)
-  }
+  },
 }
 </script>
