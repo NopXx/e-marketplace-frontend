@@ -1,9 +1,23 @@
 <template>
   <v-card class="mx-auto my-12 rounded-xl" max-width="374" color="#151515">
-    <v-img
-      height="170"
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-    ></v-img>
+    <div v-if="!!img">
+      <v-img height="170" :src="img">
+        <template #placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+    </div>
+    <div v-else>
+      <v-img
+        height="170"
+        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+      ></v-img>
+    </div>
     <v-toolbar color="transparent" class="mt-n7" flat>
       <v-avatar color="black" rounded class="mr-2" dark>
         <div class="three">
@@ -54,9 +68,13 @@ export default {
       default: '',
     },
     id: {
-        type: String,
-        default: '',
-    }
+      type: String,
+      default: '',
+    },
+    img: {
+      type: String,
+      default: '',
+    },
   },
 }
 </script>
