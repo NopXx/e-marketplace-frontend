@@ -9,7 +9,7 @@
       md="4"
       lg="3"
     >
-      <card :id="item.product_id" :price="item.product_price" :title="item.product_name" />
+      <card :id="item.product_id" :price="item.product_price" :title="item.product_name" :img="item.image" />
     </v-col>
   </v-row>
   <!-- <v-row>
