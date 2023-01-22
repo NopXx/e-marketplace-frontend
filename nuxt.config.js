@@ -10,15 +10,21 @@ export default {
     titleTemplate: '%s - frontend',
     title: 'frontend',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap'
+      }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -35,7 +41,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -51,45 +57,51 @@ export default {
     baseURL: 'http://localhost:3001/api',
     credentials: false,
     headers: {
-      Accept: 'application/json',
-    },
+      Accept: 'application/json'
+    }
   },
   auth: {
     redirect: {
-      login: '/auth',
+      login: '/auth'
     },
-  strategies: {
-    local: {
-      token: {
-        property: 'token',
-        required: true,
-        // type: 'Bearer'
-      },
-      user: {
-        property: '',
-        // type: 'Bearer'
-      },
-      endpoints: {
-        login: {
-          url: '/auth/login',
-          method: 'post',
+    strategies: {
+      local: {
+        token: {
           property: 'token',
+          required: true
+          // type: 'Bearer'
         },
         user: {
-          url: '/auth/getuser',
-          method: 'get',
+          property: ''
+          // type: 'Bearer'
         },
-        logout: false,
-      },
-    },
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            property: 'token'
+          },
+          user: {
+            url: '/auth/getuser',
+            method: 'get'
+          },
+          logout: false
+        }
+      }
+    }
   },
-},
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
+    defaultAssets: {
+      font: {
+        family: 'IBM Plex Sans Thai'
+      }
+    },
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -98,12 +110,12 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-      },
-    },
+          success: colors.green.accent3
+        }
+      }
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {}
 }

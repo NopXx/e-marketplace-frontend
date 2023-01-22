@@ -16,7 +16,7 @@
       </v-app>
     </div>
     <v-app v-else>
-      <Navbar />
+      <Navbar :loginshow="false"/>
       <v-main>
         <v-container>
           <Nuxt />
@@ -25,11 +25,11 @@
     </v-app>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import Navbar from '~/components/Navbar.vue'
 export default {
-  name: 'DefaultLayout',
+  name: 'LoginLayout',
   // eslint-disable-next-line vue/no-reserved-component-names
   components: { Navbar },
   data() {
@@ -42,12 +42,12 @@ export default {
     this.overlay = true
     setTimeout(() => {
       this.overlay = false
-    }, 1000)
+    }, 1500)
   },
 }
 </script>
-
-<style >
+  
+  <style >
 .marginLeft {
   margin-left: -90px;
 }
