@@ -2,6 +2,11 @@
   <div class="main-content">
     <v-card elevation="4" outlined max-width="500" min-width="350">
       <v-card-text>
+        <div class="d-flex justify-center my-2">
+          <v-badge color="#D5F0DB" dot>
+            <h1 class="green--text">E-Shop</h1>
+          </v-badge>
+        </div>
         <h3 class="mx-2">เข้าสู่ระบบ</h3>
         <form @submit.prevent="userLogin">
           <v-container>
@@ -9,14 +14,14 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="login.username"
-                  label="Username"
+                  label="ชื่อผู้ใช้"
                 ></v-text-field>
                 <v-text-field
                   v-model="login.password"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show1 ? 'text' : 'password'"
                   name="input-10-1"
-                  label="Password"
+                  label="รหัสผ่าน"
                   @click:append="show1 = !show1"
                 ></v-text-field>
               </v-col>
@@ -90,7 +95,7 @@ export default {
       try {
         this.loading = true
         const response = await this.$auth.loginWith('local', {
-          data: this.login
+          data: this.login,
         })
         // eslint-disable-next-line no-console
         console.log(response)
