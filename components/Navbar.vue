@@ -28,21 +28,29 @@
     </v-avatar>
     <!-- store -->
     <div v-show="userRole.role_name === 'store' ? true : false">
-      <v-avatar color="#ECF7EE" size="40" class="mr-2 mt-1">
+      <router-link to="/store" class="text-decoration-none">
+      <v-avatar color="#ECF7EE" size="40" class="mr-5 mt-1">
         <v-icon color="#0EA5E9">mdi-storefront-outline</v-icon>
       </v-avatar>
+    </router-link>
     </div>
-    <span class="grey--text d-none d-sm-flex"
-      ><strong> {{ $auth.user.f_name }}</strong></span
-    >
-    <v-avatar size="30" class="ml-2">
-      <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
-    </v-avatar>
+
     <v-menu offset-y>
       <template slot="activator" slot-scope="{ on }">
-        <v-btn icon dark v-on="on">
-          <v-icon color="#878A94">mdi-chevron-down</v-icon>
-        </v-btn>
+        <v-chip label color="#D5F0DB" class="ma-2" v-on="on">
+          <span class="dark--text d-none d-sm-flex">
+            <strong> {{ $auth.user.f_name }}</strong>
+          </span>
+
+          <v-avatar size="30" class="ml-2">
+            <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+          </v-avatar>
+          <!-- <template slot="activator" slot-scope="{ on }">
+          <v-btn icon dark v-on="on">
+            <v-icon color="#878A94">mdi-chevron-down</v-icon>
+          </v-btn>
+        </template> -->
+        </v-chip>
       </template>
       <v-list>
         <v-list-item :to="items[0].to">
@@ -100,7 +108,7 @@ export default {
     async getRole() {
       try {
         const respo = await this.$axios.get(`role`)
-        
+
         respo.data.forEach((val) => {
           if (val.store_id !== null) {
             this.userRole = val
