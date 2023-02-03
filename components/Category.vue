@@ -12,10 +12,8 @@
         >
           <v-item v-slot="{ active, toggle }">
             <v-card
-              :color="active ? '#D5F0DB' : 'white'"
               :class="active ? 'borderme' : 'borderout'"
               class="d-flex align-center rounded-lg mx-2"
-              dark
               height="180"
               flat
               @click="toggle"
@@ -33,8 +31,9 @@
                         ></v-img>
                       </div>
                       <v-list-item-title
-                        :class="active ? 'green--text' : 'black--text'"
-                        class="mt-4"
+                        :class="active ? '' : 'black--text'"
+                        class="mt-4 text-h6"
+                        color="primary"
                         >{{ cetegory.product_type_name }}</v-list-item-title
                       >
                     </v-list-item-content>

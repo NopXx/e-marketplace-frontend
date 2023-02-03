@@ -19,10 +19,10 @@
       <v-toolbar flat color="transparent" class="mt-5">
         <v-toolbar-title class="text-h6">สินค้า</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn rounded color="green" dark class="px-8">See All</v-btn>
+        <v-btn rounded color="primary" dark class="px-8">See All</v-btn>
       </v-toolbar>
 
-      <v-row justify="center" class="space px-16">
+      <v-row justify="start" class="space px-16">
         <v-col
           v-for="(item, i) in product.data"
           :key="i"

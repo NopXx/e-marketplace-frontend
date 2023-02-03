@@ -8,7 +8,7 @@
     >
       <template #activator="{ on }">
         <v-btn large icon dark v-on="on">
-          <v-icon size="30" color="primary">mdi-palette</v-icon>
+          <v-icon size="30" color="primary">mdi-cog</v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -24,7 +24,16 @@
         </v-list-item>
         <v-divider />
         <v-card-text>
-          <v-card
+          <v-card class="my-2" hover outlined @click="Logout()">
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="font-weight-bold" >
+                  Logout
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+          <!-- <v-card
             v-for="(theme, index) in themes"
             :key="index"
             class="my-2"
@@ -61,7 +70,7 @@
                 </v-avatar>
               </v-list-item-action>
             </v-list-item>
-          </v-card>
+          </v-card> -->
         </v-card-text>
         <v-divider />
         <v-card-actions>
@@ -78,6 +87,7 @@ export default {
   name: 'ThemeChanger',
   data: () => ({
     menu: false,
+    drawer: false,
     darkmode: false,
     localTheme: [],
     themes: [
@@ -241,7 +251,7 @@ export default {
           success: '#78EDAB',
           warning: '#ECA03C',
           error: '#F54C2E',
-        }
+        },
       },
     ],
   }),
@@ -299,6 +309,13 @@ export default {
           this.$vuetify.theme.dark = false
           localStorage.setItem('DarkMode', false)
         }
+      }
+    },
+    async Logout() {
+      if (confirm('Logout....?')) {
+        await this.$auth.logout()
+        // localStorage.setItem('auth._token.local', '')
+        this.$router.push({ path: '/auth/' })
       }
     },
   },
