@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+// import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -22,7 +22,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap'
+        href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap'
       }
     ]
   },
@@ -31,7 +31,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/lottie-vue-player.client.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -48,9 +48,12 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/moment'
   ],
-
+  moment: {
+    locales: ['th']
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
@@ -91,26 +94,54 @@ export default {
     }
   },
 
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, 'pages/404.vue')
+      })
+    }
+  },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     defaultAssets: {
       font: {
-        family: 'IBM Plex Sans Thai'
+        family: 'Noto Sans Thai'
       }
     },
     theme: {
       dark: false,
       themes: {
+        // dark: {
+        //   primary: colors.blue.darken2,
+        //   accent: colors.grey.darken3,
+        //   secondary: colors.amber.darken3,
+        //   info: colors.teal.lighten1,
+        //   warning: colors.amber.base,
+        //   error: colors.deepOrange.accent4,
+        //   success: colors.green.accent3
+        // },
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          primary: '#18a05a',
+          accent: '#67e5cc',
+          secondary: '#95f274',
+          info: '#2BA0E3',
+          warning: '#EFA861',
+          error: '#EB6B80',
+          success: '#10704B'
+        },
+        light: {
+          primary: '#18a05a',
+          secondary: '#95f274',
+          accent: '#67e5cc',
+          info: '#2BA0E3',
+          success: '#10704B',
+          warning: '#EFA861',
+          error: '#EB6B80'
         }
       }
     }
