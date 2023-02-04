@@ -71,7 +71,8 @@ export default {
       overlay: false,
       userData: [],
       items: [
-        { text: 'คำสั่งซื้อ', icon: 'mdi-basket-outline', to: '' },
+        { text: 'ตะกร้า', icon: 'mdi-cart-variant', to: '' },
+        { text: 'คำสั่งซื้อ', icon: 'mdi-basket-outline', to: 'order' },
         { text: 'สินค้าที่ถูกใจ', icon: 'mdi-heart', to: 'like' },
         { text: 'แก้ไข', icon: 'mdi-cog', to: 'edit' },
       ],
