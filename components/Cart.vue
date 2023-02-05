@@ -46,6 +46,7 @@
               class="mr-2 mt-1"
               v-bind="attrs"
               v-on="{ ...tooltip, ...menu }"
+              @click="getCart(); getCartNumber();"
             >
               <v-icon color="#41AB55">mdi-cart-variant</v-icon>
             </v-avatar>
@@ -110,6 +111,10 @@ export default {
   async created() {
     await this.getCart()
     await this.getCartNumber()
+  },
+  beforeMount() {
+    this.getCart()
+    this.getCartNumber()
   },
   methods: {
     async getCart() {
