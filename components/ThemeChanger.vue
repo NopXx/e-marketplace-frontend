@@ -23,7 +23,7 @@
           </v-list-item-action>
         </v-list-item>
         <v-divider />
-        <v-card-text>
+        <v-card-text v-show="$auth.loggedIn">
           <v-card class="my-2" hover outlined @click="Logout()">
             <v-list-item>
               <v-list-item-content>
