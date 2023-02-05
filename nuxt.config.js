@@ -1,4 +1,4 @@
-// import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -116,33 +116,16 @@ export default {
     theme: {
       dark: false,
       themes: {
-        // dark: {
-        //   primary: colors.blue.darken2,
-        //   accent: colors.grey.darken3,
-        //   secondary: colors.amber.darken3,
-        //   info: colors.teal.lighten1,
-        //   warning: colors.amber.base,
-        //   error: colors.deepOrange.accent4,
-        //   success: colors.green.accent3
-        // },
         dark: {
-          primary: '#18a05a',
-          accent: '#67e5cc',
-          secondary: '#95f274',
-          info: '#2BA0E3',
-          warning: '#EFA861',
-          error: '#EB6B80',
-          success: '#10704B'
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
         },
-        light: {
-          primary: '#18a05a',
-          secondary: '#95f274',
-          accent: '#67e5cc',
-          info: '#2BA0E3',
-          success: '#10704B',
-          warning: '#EFA861',
-          error: '#EB6B80'
-        }
+        
       }
     }
   },
