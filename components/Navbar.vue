@@ -15,29 +15,27 @@
       </v-avatar>
     </v-badge> -->
     <!-- like product -->
-    <v-avatar size="40" color="#ECF7EE" class="mr-2 mt-1">
-      <v-icon color="#FF6D59">mdi-cards-heart-outline</v-icon>
-    </v-avatar>
+    <v-tooltip bottom>
+      <template #activator="{ on, attrs }">
+        <v-avatar
+          size="40"
+          v-bind="attrs"
+          color="#ECF7EE"
+          class="mr-2 mt-1"
+          v-on="on"
+        >
+          <v-icon color="#FF6D59">mdi-cards-heart-outline</v-icon>
+        </v-avatar>
+      </template>
+      <span>ติดตาม</span>
+    </v-tooltip>
     <!-- <v-badge color="#41AB55" overlap content="3" class="mr-5 mt-1">
       <v-avatar color="#ECF7EE" size="40">
         <v-icon color="#41AB55">mdi-basket-outline</v-icon>
       </v-avatar>
     </v-badge> -->
     <!-- cart -->
-    <v-tooltip bottom>
-      <template #activator="{ on, attrs }">
-        <v-avatar
-          size="40"
-          color="#D5F0DB"
-          class="mr-2 mt-1"
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-icon color="#41AB55">mdi-basket-outline</v-icon>
-        </v-avatar>
-      </template>
-      <span>รถเข็น</span>
-    </v-tooltip>
+    <Cart />
     <!-- store -->
     <div v-show="userRole.role_name === 'store' ? true : false">
       <router-link to="/store" class="text-decoration-none">
@@ -111,10 +109,11 @@
 </template>
     
 <script>
+import Cart from './Cart.vue'
 import ThemeChanger from './ThemeChanger.vue'
 export default {
   name: 'NavBar',
-  components: { ThemeChanger },
+  components: { ThemeChanger, Cart },
   props: {
     loginshow: {
       type: Boolean,
