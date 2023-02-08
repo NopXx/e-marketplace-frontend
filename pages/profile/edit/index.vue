@@ -1,110 +1,114 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" class="d-flex justify-center mt-5">
-      <v-sheet outlined color="primary" rounded max-width="500" width="100%">
-        <v-card elevation="5" outlined class="card-container">
-          <v-chip color="accent" label class="pro">{{
-            $auth.user.role_name
-          }}</v-chip>
-          <v-avatar color="primary" size="128">
-            <img class="round" src="../../../assets/profile.png" alt="user" />
-          </v-avatar>
-          <h3>
-            <v-icon aria-hidden="false"> mdi-account </v-icon>
-            {{ `${user.f_name} - ${user.l_name}` }}
-          </h3>
-          <h4>
-            <v-icon aria-hidden="false"> mdi-phone </v-icon> {{ user.tel }}
-          </h4>
-          <div class="buttons mt-5">
-            <v-btn
-              color="primary"
-              elevation="2"
-              class="primary1"
-              @click="dialog = !dialog"
-              >แก้ไขข้อมูล</v-btn
-            >
-          </div>
-        </v-card>
-      </v-sheet>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-dialog v-model="dialog" persistent max-width="600px">
-        <v-card>
-          <v-card-title>
-            <span class="text-h5">แก้ไขข้อมูล</span>
-          </v-card-title>
+  <div>
+    <v-row justify="start">
+      <v-col cols="12" md="4">
+        <v-card elevation="2" outlined>
           <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="userData.f_name"
-                    label="ชื่อ"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="userData.l_name"
-                    label="นามสกุล"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="userData.username"
-                    label="ชื่อผู้ใช้"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="userData.password"
-                    label="รหัสผ่าน"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
+            <v-avatar color="primary" size="128">
+              <img class="round" src="../../../assets/profile.png" alt="user" />
+            </v-avatar>
+            <v-card-title>
+              {{ `${user.f_name} - ${user.l_name}` }}
+            </v-card-title>
+            <v-card-title>
+              {{ user.tel }}
+            </v-card-title>
+            <div class="buttons mt-5">
+              <v-btn
+                color="primary"
+                elevation="2"
+                class="primary1"
+                @click="dialog = !dialog"
+                >แก้ไขข้อมูล</v-btn
+              >
+            </div>
           </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="error" text @click="dialog = false"> ยกเลิก </v-btn>
-            <v-btn
-              color="primary"
-              elevation="2"
-              :loading="loading"
-              @click="submitData()"
-            >
-              บันทึก
-            </v-btn>
-          </v-card-actions>
         </v-card>
-      </v-dialog>
-      <v-snackbar
-        v-model="snackbar"
-        :timeout="timeout"
-        absolute
-        bottom
-        :color="colors"
-        outlined
-      >
-        {{ text }}
-        <template #action="{ attrs }">
-          <v-btn color="error" v-bind="attrs" @click="snackbar = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </template>
-      </v-snackbar>
-    </v-col>
-  </v-row>
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">แก้ไขข้อมูล</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="userData.f_name"
+                      label="ชื่อ"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="userData.l_name"
+                      label="นามสกุล"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="userData.username"
+                      label="ชื่อผู้ใช้"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="userData.password"
+                      label="รหัสผ่าน"
+                      type="password"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="error" text @click="dialog = false"> ยกเลิก </v-btn>
+              <v-btn
+                color="primary"
+                elevation="2"
+                :loading="loading"
+                @click="submitData()"
+              >
+                บันทึก
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-col>
+      <v-col cols="12" md="8">
+        <user-add/>
+        <v-row>
+          <v-col cols="12"> </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      absolute
+      bottom
+      :color="colors"
+      outlined
+    >
+      {{ text }}
+      <template #action="{ attrs }">
+        <v-btn color="error" v-bind="attrs" @click="snackbar = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
 </template>
 
 <script>
+import UserAdd from '~/components/ProfileEdit/UserAdd.vue'
 export default {
   name: 'ProFile',
+  components: { UserAdd },
   layout: 'ProfileLayout',
   middleware: 'auth',
   data: () => ({
@@ -186,8 +190,10 @@ export default {
       }
       try {
         const resp = this.$auth.loginWith('local', {
-          username: this.userData.username,
-          password: this.userData.password,
+          data: {
+            username: this.userData.username,
+            password: this.userData.password,
+          },
         })
         setTimeout(() => {
           location.reload()
