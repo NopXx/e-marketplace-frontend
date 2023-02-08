@@ -26,9 +26,12 @@
         <v-card-text v-show="$auth.loggedIn">
           <v-card class="my-2" hover outlined @click="Logout()">
             <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title class="font-weight-bold" >
-                  Logout
+                <v-list-item-title class="font-weight-bold">
+                  ออกจากระบบ
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -269,7 +272,7 @@ export default {
         this.localTheme = localStorage.getItem('theme')
         // this.setTheme(JSON.parse(this.localTheme))
       } else {
-        localStorage.setItem('theme', JSON.stringify(this.themes[0]))
+        localStorage.setItem('theme', JSON.stringify(this.themes[3]))
         this.localTheme = localStorage.getItem('theme')
         // this.setTheme(JSON.parse(this.localTheme))
       }
