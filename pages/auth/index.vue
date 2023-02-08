@@ -15,6 +15,7 @@
                 <v-text-field
                   v-model="login.username"
                   label="ชื่อผู้ใช้"
+                  required
                 ></v-text-field>
                 <v-text-field
                   v-model="login.password"
@@ -22,6 +23,7 @@
                   :type="show1 ? 'text' : 'password'"
                   name="input-10-1"
                   label="รหัสผ่าน"
+                  required
                   @click:append="show1 = !show1"
                 ></v-text-field>
               </v-col>
