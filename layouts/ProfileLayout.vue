@@ -34,14 +34,9 @@
                   </v-list-item-content>
                 </v-list-item>
                 <v-divider class="my-2"></v-divider>
-
                 <v-list rounded>
-                  <v-list-item-group color="success">
-                    <v-list-item
-                      v-for="(item, i) in items"
-                      :key="i"
-                      :to="`/profile/${item.to}`"
-                    >
+                  <v-list-item-group v-model="selectedItem" color="primary">
+                    <v-list-item v-for="(item, i) in items" :key="i" :to="`/profile/${item.to}`">
                       <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
                       </v-list-item-icon>
@@ -70,8 +65,9 @@ export default {
     return {
       overlay: false,
       userData: [],
+      selectedItem: 0,
       items: [
-        { text: 'ตะกร้า', icon: 'mdi-cart-variant', to: '' },
+        { text: 'ตะกร้า', icon: 'mdi-cart-variant', to: 'cart' },
         { text: 'คำสั่งซื้อ', icon: 'mdi-basket-outline', to: 'order' },
         { text: 'สินค้าที่ถูกใจ', icon: 'mdi-heart', to: 'like' },
         { text: 'แก้ไข', icon: 'mdi-cog', to: 'edit' },
