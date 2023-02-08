@@ -36,6 +36,7 @@
             :img="item.image"
             :price="item.product_price"
             :title="item.product_name"
+            :number="item.product_number"
           />
         </v-col>
       </v-row>
