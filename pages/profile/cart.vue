@@ -136,63 +136,6 @@
             <v-btn color="primary"> สั่งสินค้า </v-btn>
           </router-link>
         </template>
-        <!-- <template #[`item.actions`]="{ item }">
-          <router-link
-            :to="`/store/edit/${item['product_id']}`"
-            class="text-decoration-none"
-          >
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  text
-                  elevation="2"
-                  class="ma-2 pa-6"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon class="m-2" color="green lighten-2"
-                    >mdi-account-edit-outline</v-icon
-                  >
-                </v-btn>
-              </template>
-              <span>แก้ไขสินค้า</span>
-            </v-tooltip>
-          </router-link> -->
-
-        <!-- if product_show == 1 -->
-        <!-- <v-tooltip v-if="item['product_show'] == 1" bottom>
-            <template #activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                text
-                class="ma-2 pa-6"
-                elevation="2"
-                v-on="on"
-                @click="delProduct(item['product_id'])"
-              >
-                <v-icon color="error">mdi-delete</v-icon>
-              </v-btn>
-            </template>
-            <span>ปิดแสดงสินค้า</span>
-          </v-tooltip> -->
-        <!-- else -->
-        <!-- <v-tooltip v-else bottom>
-            <template #activator="{ on, attrs }">
-              <v-btn
-                text
-                class="ma-2 pa-6"
-                elevation="2"
-                v-bind="attrs"
-                v-on="on"
-                @click.stop="showCilck(item['product_id'])"
-              >
-                <v-icon color="error">mdi-eye-outline</v-icon>
-              </v-btn>
-            </template>
-            <span>แสดงสินค้า</span>
-          </v-tooltip>
-          
-        </template> -->
       </v-data-table>
     </v-card>
     <v-snackbar v-model="snackbar" :timeout="timeout">
