@@ -31,145 +31,146 @@
         </span>
       </v-card-text>
       <v-card-actions class="my-4">
-        <v-dialog transition="dialog-bottom-transition" max-width="600">
-          <template #activator="{ on, attrs }">
-            <v-btn
-              class="mx-2 mt-n3"
-              dark
-              color="green"
-              v-bind="attrs"
-              v-on="on"
-              @click="
-                checkFollow()
-                checkCart()
-              "
-            >
-              เพิ่มเข้าตะกร้า
-              <v-icon dark right> mdi-cart-variant </v-icon>
-            </v-btn>
-          </template>
-          <template #default="dialog">
-            <v-card>
-              <div v-if="$auth.loggedIn">
-                <v-toolbar color="primary" dark>เพิ่มเข้าตะกร้า</v-toolbar>
-                <v-card-text>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-img
-                        v-if="!!img"
-                        height="250"
-                        contain
-                        :src="img"
-                      ></v-img>
-                      <v-list-item-title class="text-h5">{{
-                        title
-                      }}</v-list-item-title>
-                      <v-list-item-subtitle class="text-body-1 my-3">
-                        ราคา
-                        {{ Number(price.toFixed(1)).toLocaleString() }}
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle class="text-body-1 my-3">
-                        จำนวนสินค้าที่มี
-                        {{ Number(number.toFixed(1)).toLocaleString() }}
-                        ชิ้น
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle>
-                        <v-btn
-                          v-if="followProduct.length === 0"
-                          class="mt-2"
-                          dark
-                          color="pink"
-                          @click="followP"
-                        >
-                          ติดตามสินค้า
-                          <v-icon dark right> mdi-cards-heart-outline </v-icon>
-                        </v-btn>
-                        <v-btn
-                          v-else
-                          class="mt-2"
-                          dark
-                          color="pink"
-                          @click="unfollowP"
-                        >
-                          ติดตามสินค้าแล้ว
-                          <v-icon dark right> mdi-cards-heart </v-icon>
-                        </v-btn>
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle class="text-h6 mt-4">
-                        <v-icon color="green" @click="decrement">
-                          mdi-minus
-                        </v-icon>
+        <v-btn
+          class="mx-2 mt-n3"
+          dark
+          color="green"
+          @click="
+            checkFollow()
+            checkCart()
+            dialog = true
+          "
+        >
+          เพิ่มเข้าตะกร้า
+          <v-icon dark right> mdi-cart-variant </v-icon>
+        </v-btn>
+        <v-dialog
+          v-model="dialog"
+          transition="dialog-bottom-transition"
+          max-width="600"
+        >
+          <v-card>
+            <div v-if="$auth.loggedIn">
+              <v-toolbar color="primary" dark
+                >เพิ่มเข้าตะกร้า
+                <v-spacer></v-spacer>
+                <v-btn icon dark @click="dialog = false">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn></v-toolbar
+              >
 
-                        {{ bpm }}
+              <v-card-text>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-img v-if="!!img" height="250" contain :src="img"></v-img>
+                    <v-list-item-title class="text-h5">{{
+                      title
+                    }}</v-list-item-title>
+                    <v-list-item-subtitle class="text-body-1 my-3">
+                      ราคา
+                      {{ Number(price.toFixed(1)).toLocaleString() }}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="text-body-1 my-3">
+                      จำนวนสินค้าที่มี
+                      {{ Number(number.toFixed(1)).toLocaleString() }}
+                      ชิ้น
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle>
+                      <v-btn
+                        v-if="followProduct.length === 0"
+                        class="mt-2"
+                        dark
+                        color="pink"
+                        @click="followP"
+                      >
+                        ติดตามสินค้า
+                        <v-icon dark right> mdi-cards-heart-outline </v-icon>
+                      </v-btn>
+                      <v-btn
+                        v-else
+                        class="mt-2"
+                        dark
+                        color="pink"
+                        @click="unfollowP"
+                      >
+                        ติดตามสินค้าแล้ว
+                        <v-icon dark right> mdi-cards-heart </v-icon>
+                      </v-btn>
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="text-h6 mt-4">
+                      <v-icon color="green" @click="decrement">
+                        mdi-minus
+                      </v-icon>
 
-                        <v-icon color="green" @click="increment">
-                          mdi-plus
-                        </v-icon>
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
+                      {{ bpm }}
 
-                  <v-card-actions>
-                    <div v-if="CartProduct.length > 0 && bpm === 0">
-                      <v-btn
-                        class="mx-2 mt-n3"
-                        dark
-                        color="error"
-                        @click="deleteCart"
-                      >
-                        ลบออกจากตะกร้า
-                        <v-icon dark right> mdi-cart-remove </v-icon>
-                      </v-btn>
-                    </div>
-                    <div v-else-if="CartProduct.length > 0 && bpm != 0">
-                      <v-btn
-                        class="mx-2 mt-n3"
-                        dark
-                        color="warning"
-                        @click="updateCart"
-                      >
-                        แก้ไขตะกร้า
-                        <v-icon dark right> mdi-cart-variant </v-icon>
-                      </v-btn>
-                      <v-btn
-                        class="mx-2 mt-n3"
-                        dark
-                        color="error"
-                        @click="deleteCart"
-                      >
-                        ลบออกจากตะกร้า
-                        <v-icon dark right> mdi-cart-remove </v-icon>
-                      </v-btn>
-                    </div>
-                    <div v-else>
-                      <v-btn
-                        class="mx-2 mt-n3"
-                        dark
-                        color="green"
-                        @click="addCart"
-                      >
-                        เพิ่มเข้าตะกร้า
-                        <v-icon dark right> mdi-cart-variant </v-icon>
-                      </v-btn>
-                    </div>
-                  </v-card-actions>
-                </v-card-text>
-              </div>
-              <div v-else>
-                <v-toolbar color="primary" dark>คำเตือน</v-toolbar>
-                <v-card-text>
-                  <div justify="center">
-                    <router-link to="/auth" class="text-decoration-none">
-                      <v-btn>เข้าสู่ระบบ</v-btn>
-                    </router-link>
+                      <v-icon color="green" @click="increment">
+                        mdi-plus
+                      </v-icon>
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-card-actions>
+                  <div v-if="CartProduct.length > 0 && bpm === 0">
+                    <v-btn
+                      class="mx-2 mt-n3"
+                      dark
+                      color="error"
+                      @click="deleteCart"
+                    >
+                      ลบออกจากตะกร้า
+                      <v-icon dark right> mdi-cart-remove </v-icon>
+                    </v-btn>
                   </div>
-                </v-card-text>
-                <v-card-actions class="justify-end">
-                  <v-btn text @click="dialog.value = false">Close</v-btn>
+                  <div v-else-if="CartProduct.length > 0 && bpm != 0">
+                    <v-btn
+                      class="mx-2 mt-n3"
+                      dark
+                      color="warning"
+                      @click="updateCart"
+                    >
+                      แก้ไขตะกร้า
+                      <v-icon dark right> mdi-cart-variant </v-icon>
+                    </v-btn>
+                    <v-btn
+                      class="mx-2 mt-n3"
+                      dark
+                      color="error"
+                      @click="deleteCart"
+                    >
+                      ลบออกจากตะกร้า
+                      <v-icon dark right> mdi-cart-remove </v-icon>
+                    </v-btn>
+                  </div>
+                  <div v-else>
+                    <v-btn
+                      class="mx-2 mt-n3"
+                      dark
+                      color="green"
+                      @click="addCart"
+                    >
+                      เพิ่มเข้าตะกร้า
+                      <v-icon dark right> mdi-cart-variant </v-icon>
+                    </v-btn>
+                  </div>
                 </v-card-actions>
-              </div>
-            </v-card>
-          </template>
+              </v-card-text>
+            </div>
+            <div v-else>
+              <v-toolbar color="primary" dark>คำเตือน</v-toolbar>
+              <v-card-text>
+                <div justify="center">
+                  <router-link to="/auth" class="text-decoration-none">
+                    <v-btn>เข้าสู่ระบบ</v-btn>
+                  </router-link>
+                </div>
+              </v-card-text>
+              <v-card-actions class="justify-end">
+                <v-btn text @click="dialog.value = false">Close</v-btn>
+              </v-card-actions>
+            </div>
+          </v-card>
         </v-dialog>
       </v-card-actions>
     </v-card>
@@ -218,6 +219,7 @@ export default {
     rating: 4,
     followProduct: [],
     CartProduct: [],
+    dialog: false,
     cart: {
       product_id: '',
       item_number: '',
