@@ -41,7 +41,7 @@
         </template>
         <template #[`item.actions`]="{ item }">
           <router-link
-            :to="`/store/edit/${item['product_id']}`"
+            :to="`/store/list/${item['product_id']}`"
             class="text-decoration-none"
           >
             <v-tooltip bottom>
