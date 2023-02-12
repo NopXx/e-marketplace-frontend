@@ -93,6 +93,9 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-col v-if="showUserAdd === false && showUserEditAdd === false" cols="12" md="6">
+        <theme-changer />
+      </v-col>
       <v-col v-show="showUserAdd" cols="12" md="6">
         <!-- form add -->
         <v-row>
@@ -316,12 +319,14 @@
 </template>
 
 <script>
+import ThemeChanger from '../ThemeChanger.vue'
 import provincsData from '~/static/autoprovince1-2/json/provinces.json'
 import amphuresData from '~/static/autoprovince1-2/json/amphures.json'
 import districtsData from '~/static/autoprovince1-2/json/districts.json'
 import zipcodesData from '~/static/autoprovince1-2/json/zipcodes.json'
 export default {
   name: 'UserAddressComponent',
+  components: { ThemeChanger },
   middleware: 'auth',
   data() {
     return {
@@ -537,6 +542,7 @@ export default {
     },
     async btnEdit(useraddressid) {
       this.user_a_id = useraddressid
+      this.showUserAdd = false
       this.showUserEditAdd = true
       try {
         const respo = await this.$axios.get(`/useradd/${useraddressid}`)

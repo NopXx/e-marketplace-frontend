@@ -1,17 +1,18 @@
 <template>
   <div>
-    <v-menu
-      v-model="menu"
-      :close-on-content-click="false"
-      :nudge-width="200"
-      offset-y
-    >
-      <template #activator="{ on }">
-        <v-btn large icon dark v-on="on">
-          <v-icon size="30" color="primary">mdi-cog</v-icon>
-        </v-btn>
-      </template>
-      <v-card>
+    <v-card v-show="loadtheme">
+      <v-card-text>
+        <v-skeleton-loader
+          v-bind="attrs"
+          type="article, actions"
+        ></v-skeleton-loader>
+      </v-card-text>
+    </v-card>
+    <v-card v-show="!loadtheme">
+      <v-card-title>
+        Themes
+      </v-card-title>
+      <v-card-text>
         <v-list-item>
           <v-list-item-content
             ><v-list-item-title class="font-weight-bold">
@@ -22,66 +23,46 @@
             ><v-switch v-model="darkmode" inset />
           </v-list-item-action>
         </v-list-item>
-        <v-divider />
-        <v-card-text v-show="$auth.loggedIn">
-          <v-card class="my-2" hover outlined @click="Logout()">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">
-                  ออกจากระบบ
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
-          <!-- <v-card
-            v-for="(theme, index) in themes"
-            :key="index"
-            class="my-2"
-            :disabled="$vuetify.theme.themes.name === theme.name"
-            hover
-            outlined
-            @click="setTheme(theme)"
-          >
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">
-                  {{ theme.name }}</v-list-item-title
-                >
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-avatar
-                  v-if="$vuetify.theme.themes.name === theme.name"
-                  color="primary"
-                  size="30"
-                >
-                  <v-icon>mdi-check</v-icon>
-                </v-avatar>
-                <v-avatar v-else :color="theme.light.primary" size="30">
-                </v-avatar>
-              </v-list-item-action>
-              <v-list-item-action>
-                <v-avatar
-                  v-if="$vuetify.theme.themes.name === theme.name"
-                  color="secondary"
-                  size="30"
-                >
-                </v-avatar>
-                <v-avatar v-else :color="theme.light.secondary" size="30">
-                </v-avatar>
-              </v-list-item-action>
-            </v-list-item>
-          </v-card> -->
-        </v-card-text>
-        <v-divider />
-        <v-card-actions>
-          <v-btn text color="grey" @click="menu = false">Close</v-btn>
-          <v-spacer />
-        </v-card-actions>
-      </v-card>
-    </v-menu>
+        <v-card
+          v-for="(theme, index) in themes"
+          :key="index"
+          class="my-2"
+          :disabled="$vuetify.theme.themes.name === theme.name"
+          hover
+          outlined
+          @click="setTheme(theme)"
+        >
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-bold">
+                {{ theme.name }}</v-list-item-title
+              >
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-avatar
+                v-if="$vuetify.theme.themes.name === theme.name"
+                color="primary"
+                size="30"
+              >
+                <v-icon>mdi-check</v-icon>
+              </v-avatar>
+              <v-avatar v-else :color="theme.light.primary" size="30">
+              </v-avatar>
+            </v-list-item-action>
+            <v-list-item-action>
+              <v-avatar
+                v-if="$vuetify.theme.themes.name === theme.name"
+                color="secondary"
+                size="30"
+              >
+              </v-avatar>
+              <v-avatar v-else :color="theme.light.secondary" size="30">
+              </v-avatar>
+            </v-list-item-action>
+          </v-list-item>
+        </v-card>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -93,6 +74,7 @@ export default {
     drawer: false,
     darkmode: false,
     localTheme: [],
+    loadtheme: false,
     themes: [
       {
         name: 'Terra Cotta',
@@ -260,7 +242,9 @@ export default {
   }),
   watch: {
     localTheme(oldval, newval) {
+      
       this.setTheme(JSON.parse(this.localTheme))
+      
     },
     darkmode(oldval, newval) {
       this.handledarkmode()
@@ -288,10 +272,12 @@ export default {
     setTheme(theme) {
       // close menu
       // eslint-disable-next-line no-console
+      this.loadtheme = true
       this.menu = false
       const name = theme.name
       const dark = theme.dark
       const light = theme.light
+
       // set themes
       Object.keys(dark).forEach((i) => {
         this.$vuetify.theme.themes.dark[i] = dark[i]
@@ -302,6 +288,8 @@ export default {
       // also save theme name to disable selection
       this.$vuetify.theme.themes.name = name
       localStorage.setItem('theme', JSON.stringify(theme))
+      this.loadtheme = false
+      
     },
     handledarkmode() {
       if (process.browser) {
