@@ -6,7 +6,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="ค้นหาข้อมูล"
           single-line
           hide-details
         ></v-text-field>
@@ -16,6 +16,8 @@
         :items="cart"
         :search="search"
         :loading="loadingdata"
+        no-data-text="ไม่มีข้อมูล"
+        class="elevation-1"
         group-by="store_name"
         loading-text="กำลังโหลดข้อมูล"
       >
@@ -183,7 +185,7 @@ export default {
       path: [
         {
           text: 'ตะกร้าสินค้า',
-          disabled: false,
+          disabled: true,
           href: '/profile',
         },
       ],

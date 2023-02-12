@@ -12,7 +12,7 @@
         >
           <v-item v-slot="{ active, toggle }">
             <v-card
-              :class="active ? 'borderme' : 'borderout'"
+              :class="active ? 'primary' : 'borderout'"
               class="d-flex align-center rounded-lg mx-2"
               height="180"
               flat

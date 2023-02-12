@@ -89,8 +89,8 @@
                             </td>
                             <td>
                               {{
-                                Number((
-                                  cartData.product_price)?.toFixed(1)
+                                Number(
+                                  cartData.product_price?.toFixed(1)
                                 ).toLocaleString()
                               }}
                             </td>
@@ -113,7 +113,9 @@
                 </v-row>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn outlined color="primary" @click="btnSave"> สั่งสินค้า </v-btn>
+                  <v-btn outlined color="primary" @click="btnSave">
+                    สั่งสินค้า
+                  </v-btn>
                 </v-card-actions>
               </v-card-text>
             </v-card>
@@ -121,6 +123,7 @@
         </v-row>
       </v-card-text>
     </v-card>
+    
   </div>
 </template>
 
@@ -175,20 +178,19 @@ export default {
       }
     },
     async btnSave() {
-        try {
-            const respo = await this.$axios.post(`/order`, {
-                cart_id: this.$route.params.id,
-                user_address_id: this.userAddset.user_a_id
-            })
-            setTimeout(() => {
-                // eslint-disable-next-line no-console
-                console.log(respo)
-            }, respo);
-        } catch (e) {
-            // eslint-disable-next-line no-console
-            console.log(e)
-        }
-    }
+      try {
+        const respo = await this.$axios.post(`/order`, {
+          cart_id: this.$route.params.id,
+          user_address_id: this.userAddset.user_a_id,
+        })
+        setTimeout(() => {
+          this.$router.push('/profile/order')
+        }, respo)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e)
+      }
+    },
   },
 }
 </script>

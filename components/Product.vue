@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <v-card class="mx-auto rounded-md" min-width="250" color="" flat outlined>
+    <v-card class="mx-auto rounded-md" min-width="300" color="" flat outlined>
       <div align="center" justify="center">
         <v-img v-if="!!img" height="250" contain :src="img"></v-img>
         <v-img
@@ -11,7 +11,7 @@
           src="https://res.cloudinary.com/dqolakmsp/image/upload/v1674542994/samples/Img/No-Image-Placeholder.svg_wgjnzw.png"
         ></v-img>
       </div>
-      <v-card-title class="">{{ title }}</v-card-title>
+      <v-card-title class="text-truncate">{{ title }}</v-card-title>
       <v-card-title class="mt-n4">{{
         Number(price.toFixed(1)).toLocaleString()
       }}</v-card-title>
@@ -34,7 +34,7 @@
         <v-btn
           class="mx-2 mt-n3"
           dark
-          color="green"
+          color="primary"
           @click="
             checkFollow()
             checkCart()
@@ -350,4 +350,8 @@ export default {
 </script>
 
 <style>
+.text-wrap {
+  text-overflow: ellipsis; /* enables ellipsis */
+  overflow: hidden; /* keeps the element from overflowing its parent */
+}
 </style>

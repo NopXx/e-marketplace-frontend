@@ -6,7 +6,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="ค้นหาข้อมูล"
           single-line
           hide-details
         ></v-text-field>
@@ -15,6 +15,10 @@
         :headers="headers"
         :items="product"
         :search="search"
+        no-data-text="ไม่มีข้อมูล"
+        no-results-text="ไม่พบข้อมูล"
+        class="elevation-1"
+        loading-text="กำลังโหลดข้อมูล"
         :loading="loadingdata"
       >
         <template #[`item.image`]="{ item }">
@@ -50,7 +54,7 @@
                   v-on="on"
                 >
                   <v-icon class="m-2" color="green lighten-2"
-                    >mdi-account-edit-outline</v-icon
+                    >mdi-pencil-outline</v-icon
                   >
                 </v-btn>
               </template>
@@ -69,7 +73,7 @@
                 v-on="on"
                 @click="delProduct(item['product_id'])"
               >
-                <v-icon color="error">mdi-delete</v-icon>
+                <v-icon color="error">mdi-eye-off-outline</v-icon>
               </v-btn>
             </template>
             <span>ปิดแสดงสินค้า</span>
@@ -85,12 +89,11 @@
                 v-on="on"
                 @click.stop="showCilck(item['product_id'])"
               >
-                <v-icon color="error">mdi-eye-outline</v-icon>
+                <v-icon color="success">mdi-eye-outline</v-icon>
               </v-btn>
             </template>
             <span>แสดงสินค้า</span>
           </v-tooltip>
-          
         </template>
       </v-data-table>
     </v-card>

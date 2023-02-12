@@ -4,8 +4,20 @@
       <v-col cols="12" md="4">
         <v-card elevation="2" outlined>
           <v-card-text>
-            <v-avatar color="primary" size="128">
-              <img class="round" src="../../../assets/profile.png" alt="user" />
+            <v-avatar size="128">
+              <v-img
+                v-if="user.image === null"
+                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676141396/image/profile/profile_sgnfpv.png"
+                contain
+              ></v-img>
+              <v-img
+                v-else
+                :src="user.image"
+                aspect-ratio="1.4"
+                max-height="125"
+                max-width="110"
+                contain
+              ></v-img>
             </v-avatar>
             <v-card-title>
               {{ `${user.f_name} - ${user.l_name}` }}
@@ -32,6 +44,35 @@
             <v-card-text>
               <v-container>
                 <v-row>
+                  <v-avatar class="profile" color="grey" size="164">
+                    <v-img
+                      v-if="user.image === null"
+                      src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676141396/image/profile/profile_sgnfpv.png"
+                      contain
+                    ></v-img>
+                    <v-img v-else :src="user.image" contain></v-img>
+                  </v-avatar>
+                  <v-col cols="12" sm="10">
+                    <v-file-input
+                      v-model="file"
+                      truncate-length="15"
+                      label="อัพโหลดรูป"
+                    ></v-file-input>
+                    <v-progress-linear
+                      v-show="loadbar"
+                      indeterminate
+                      color="green"
+                    ></v-progress-linear>
+                  </v-col>
+                  <v-col cols="12" sm="10">
+                    <v-btn
+                      outlined
+                      color="primary"
+                      :disabled="file !== '' ? false : true"
+                      @click="uploadfile"
+                      >อัพโหลดรูป</v-btn
+                    >
+                  </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="userData.f_name"
@@ -80,7 +121,7 @@
         </v-dialog>
       </v-col>
       <v-col cols="12" md="8">
-        <user-add/>
+        <user-add />
         <v-row>
           <v-col cols="12"> </v-col>
         </v-row>
@@ -127,6 +168,8 @@ export default {
       password: '',
     },
     dialog: false,
+    file: '',
+    loadbar: false,
   }),
   computed: {
     progress() {
@@ -201,6 +244,25 @@ export default {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e)
+      }
+    },
+    async uploadfile() {
+      this.loadbar = true
+      try {
+        const img = this.file
+        const formData = new FormData()
+        formData.append('image', img)
+        this.loading1 = true
+        const response = await this.$axios.post('/upload/profile', formData)
+        setTimeout(() => {
+          this.getUserData()
+          this.file = {}
+          this.loadbar = false
+        }, response)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e)
+        this.loadbar = false
       }
     },
   },

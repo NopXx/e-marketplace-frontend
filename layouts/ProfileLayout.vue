@@ -20,10 +20,19 @@
                 <v-list-item class="text-center">
                   <v-list-item-content>
                     <v-avatar size="128">
-                      <img
-                        src="https://cdn.vuetifyjs.com/images/john.jpg"
-                        alt="John"
-                      />
+                      <v-img
+                        v-if="userData.image === null"
+                        src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676141396/image/profile/profile_sgnfpv.png"
+                        contain
+                      ></v-img>
+                      <v-img
+                        v-else
+                        :src="userData.image"
+                        aspect-ratio="1.4"
+                        max-height="125"
+                        max-width="110"
+                        contain
+                      ></v-img>
                     </v-avatar>
                     <v-list-item-title class="text-h5">
                       {{ userData.f_name + ' - ' + userData.l_name }}
@@ -36,7 +45,11 @@
                 <v-divider class="my-2"></v-divider>
                 <v-list rounded>
                   <v-list-item-group v-model="selectedItem" color="primary">
-                    <v-list-item v-for="(item, i) in items" :key="i" :to="`/profile/${item.to}`">
+                    <v-list-item
+                      v-for="(item, i) in items"
+                      :key="i"
+                      :to="`/profile/${item.to}`"
+                    >
                       <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
                       </v-list-item-icon>

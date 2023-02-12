@@ -19,7 +19,6 @@
       <v-toolbar flat color="transparent" class="mt-5">
         <v-toolbar-title class="text-h6">สินค้า</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn rounded color="primary" dark class="px-8">See All</v-btn>
       </v-toolbar>
 
       <v-row justify="start" class="space px-16">
@@ -29,7 +28,7 @@
           cols="12"
           xs="12"
           sm="6"
-          md="4"
+          md="3"
         >
           <Product
             :id="item.product_id"

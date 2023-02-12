@@ -65,26 +65,23 @@
         </span>
 
         <v-avatar size="30" class="ml-2">
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+          <v-img
+            v-if="userData.image === null"
+            src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676141396/image/profile/profile_sgnfpv.png"
+            contain
+          ></v-img>
+          <v-img
+            v-else
+            :src="userData.image"
+            aspect-ratio="1.4"
+            max-height="125"
+            max-width="110"
+            contain
+          ></v-img>
         </v-avatar>
-        <!-- <template slot="activator" slot-scope="{ on }">
-          <v-btn icon dark v-on="on">
-            <v-icon color="#878A94">mdi-chevron-down</v-icon>
-          </v-btn>
-        </template> -->
       </v-chip>
     </router-link>
-    <!-- </template> -->
-    <!-- <v-list>
-        <v-list-item :to="items[0].to">
-          <v-list-item-title>{{ items[0].title }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="Logout()">
-          <v-list-item-title>{{ items[1].title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu> -->
-    <ThemeChanger />
+    <setting />
   </v-app-bar>
   <v-app-bar v-else app flat>
     <router-link to="/" class="text-decoration-none">
@@ -104,16 +101,16 @@
         </router-link>
       </v-chip>
     </div>
-    <ThemeChanger />
+    <setting />
   </v-app-bar>
 </template>
     
 <script>
 import Cart from './Cart.vue'
-import ThemeChanger from './ThemeChanger.vue'
+import Setting from './Setting.vue'
 export default {
   name: 'NavBar',
-  components: { ThemeChanger, Cart },
+  components: { Cart, Setting },
   props: {
     loginshow: {
       type: Boolean,
@@ -125,10 +122,12 @@ export default {
       { title: 'Profile', to: '/profile' },
       { title: 'Logout', to: '/logout' },
     ],
+    userData: [],
     userRole: [],
   }),
   async created() {
     await this.getRole()
+    await this.getUser()
   },
   methods: {
     async Logout() {
@@ -147,6 +146,19 @@ export default {
             this.userRole = val
           }
         })
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e)
+      }
+    },
+    async getUser() {
+      this.overlay = true
+      try {
+        const response = await this.$axios.get('/user')
+        this.userData = response.data[0]
+        setTimeout(() => {
+          this.overlay = false
+        }, response)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)

@@ -37,7 +37,7 @@
 
                 <v-list rounded>
                   <v-list-item-title>Admin Store</v-list-item-title>
-                  <v-list-item-group color="success">
+                  <v-list-item-group v-model="selectedItem" color="primary">
                     <v-list-item
                       v-for="(item, i) in items"
                       :key="i"
@@ -80,9 +80,10 @@ export default {
       product: {},
       selectedItem: 0,
       items: [
-        { text: 'Dashboard', icon: 'mdi-clock', to: '' },
+        { text: 'Dashboard', icon: 'mdi-clock', to: 'dashboard' },
         { text: 'สินค้า', icon: 'mdi-basket-outline', to: 'list' },
         { text: 'เพิ่มสินค้า', icon: 'mdi-plus-box', to: 'add' },
+        { text: 'คำสั่งซื้อ', icon: 'mdi-basket-outline', to: 'order' },
       ],
     }
   },
