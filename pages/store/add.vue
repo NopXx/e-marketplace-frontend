@@ -262,7 +262,7 @@ export default {
         },
         { text: 'ตัวเลือก', value: 'actions', sortable: false },
       ],
-      product_type: {},
+      product_type: [],
       product_id: '',
       loadingdata: false,
       loading: false,
@@ -285,9 +285,9 @@ export default {
     async producttype() {
       try {
         const response = await this.$axios.get('/product-type')
-        this.product_type = response.data.data
+        this.product_type = response.data
         // eslint-disable-next-line no-console
-        console.log(this.product_type)
+        console.log(response.data)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)

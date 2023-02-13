@@ -338,7 +338,7 @@ export default {
     async producttype() {
       try {
         const response = await this.$axios.get('/product-type')
-        this.product_type = response.data.data
+        this.product_type = response.data
         // eslint-disable-next-line no-console
         // console.log(this.product_type)
       } catch (e) {
