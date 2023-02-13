@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="center" class="space">
         <v-col
-          v-for="(cetegory, i) in type.data"
+          v-for="(cetegory, i) in type"
           :key="i"
           cols="12"
           xs="12"
@@ -24,14 +24,21 @@
                     <v-list-item-content>
                       <div align="center" justify="center">
                         <v-img
-                          :src="require(`~/assets/img/01.png`)"
-                          max-height="80"
+                          v-if="cetegory.image !== null"
+                          :src="cetegory.image"
+                          max-height="100"
+                          max-width="80"
+                          contain
+                        ></v-img>
+                        <v-img
+                          v-else
+                          src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                          max-height="100"
                           max-width="80"
                           contain
                         ></v-img>
                       </div>
                       <v-list-item-title
-                        :class="active ? '' : 'black--text'"
                         class="mt-4 text-h6"
                         color="primary"
                         >{{ cetegory.product_type_name }}</v-list-item-title
