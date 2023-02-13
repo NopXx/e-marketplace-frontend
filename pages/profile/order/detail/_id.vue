@@ -24,7 +24,11 @@
                 <v-row>
                   <v-col cols="12" md="4">
                     <v-card-title>
-                      <v-avatar color="primary" size="35" class="mr-2">{{
+                      <v-avatar
+                        color="primary"
+                        size="35"
+                        class="mr-2"
+                        >{{
                       }}</v-avatar>
                       {{ orderData.store_name }}
                     </v-card-title>
@@ -90,7 +94,10 @@
                               หมายเลขพัสดุ
                             </th>
                             <th
-                              v-show="orderData.order_user_cancel === 1 || orderData.order_store_cancel === 1"
+                              v-show="
+                                orderData.order_user_cancel === 1 ||
+                                orderData.order_store_cancel === 1
+                              "
                               class="text-left"
                             >
                               เหตุผลที่ยกเลิก
@@ -160,9 +167,19 @@
                                 orderData.transport_id !== null
                               "
                             >
-                              <v-avatar size="35" color="error">{{
-                                transport_name
-                              }}</v-avatar>
+                              <v-img
+                                v-if="orderData.transport_image === null"
+                                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                                contain
+                              ></v-img>
+                              <v-img
+                                v-else
+                                :src="orderData.transport_image"
+                                aspect-ratio="1.6"
+                                max-height="125"
+                                max-width="100"
+                                contain
+                              ></v-img>
                               {{ orderData.transport_name }} :
                               {{ orderData.order_tag }}
                             </td>
@@ -180,7 +197,19 @@
                               </v-btn>
                             </td>
                             <td colspan="2">
-                              <v-avatar size="35" color="error">K</v-avatar>
+                              <v-img
+                                v-if="orderData.transport_image === null"
+                                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                                contain
+                              ></v-img>
+                              <v-img
+                                v-else
+                                :src="orderData.transport_image"
+                                aspect-ratio="1.6"
+                                max-height="125"
+                                max-width="100"
+                                contain
+                              ></v-img>
                               {{ orderData.transport_name }} :
                               {{ orderData.order_tag }}
                             </td>
@@ -197,8 +226,22 @@
                                 สั่งสินค้าสำเร็จ
                               </v-btn>
                             </td>
-                            <td colspan="2">
-                              <v-avatar size="35" color="error">K</v-avatar>
+                            <td>
+                              <!-- <v-avatar size="45"> -->
+                              <v-img
+                                v-if="orderData.transport_image === null"
+                                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                                contain
+                              ></v-img>
+                              <v-img
+                                v-else
+                                :src="orderData.transport_image"
+                                aspect-ratio="1.6"
+                                max-height="125"
+                                max-width="100"
+                                contain
+                              ></v-img>
+                              <!-- </v-avatar> -->
                               {{ orderData.transport_name }} :
                               {{ orderData.order_tag }}
                             </td>
@@ -345,7 +388,7 @@ export default {
           text: 'รายละเอียดคำสั่งซื้อ',
           disabled: true,
           href: '/profile/order',
-        }
+        },
       ],
     }
   },

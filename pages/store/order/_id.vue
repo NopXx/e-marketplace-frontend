@@ -88,7 +88,10 @@
                               หมายเลขพัสดุ
                             </th>
                             <th
-                              v-show="orderData.order_user_cancel === 1 || orderData.order_store_cancel === 1"
+                              v-show="
+                                orderData.order_user_cancel === 1 ||
+                                orderData.order_store_cancel === 1
+                              "
                               class="text-left"
                             >
                               เหตุผลที่ยกเลิก
@@ -214,7 +217,19 @@
                               </v-btn>
                             </td>
                             <td colspan="2">
-                              <v-avatar size="35" color="error">K</v-avatar>
+                              <v-img
+                                v-if="orderData.transport_image === null"
+                                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                                contain
+                              ></v-img>
+                              <v-img
+                                v-else
+                                :src="orderData.transport_image"
+                                aspect-ratio="1.6"
+                                max-height="125"
+                                max-width="100"
+                                contain
+                              ></v-img>
                               {{ orderData.transport_name }} :
                               {{ orderData.order_tag }}
                             </td>
@@ -232,7 +247,19 @@
                               </v-btn>
                             </td>
                             <td colspan="2">
-                              <v-avatar size="35" color="error">K</v-avatar>
+                              <v-img
+                                v-if="orderData.transport_image === null"
+                                src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                                contain
+                              ></v-img>
+                              <v-img
+                                v-else
+                                :src="orderData.transport_image"
+                                aspect-ratio="1.6"
+                                max-height="125"
+                                max-width="100"
+                                contain
+                              ></v-img>
                               {{ orderData.transport_name }} :
                               {{ orderData.order_tag }}
                             </td>
@@ -376,10 +403,7 @@ export default {
       cancelData: {
         cancel_order_detail: '',
       },
-      items: [
-        { value: 'สินค้าหมด' },
-        { value: 'ไม่มีสินค้านี้แล้ว' },
-      ],
+      items: [{ value: 'สินค้าหมด' }, { value: 'ไม่มีสินค้านี้แล้ว' }],
       path: [
         {
           text: 'คำสั่งซื้อ',
@@ -390,7 +414,7 @@ export default {
           text: 'รายละเอียดคำสั่งซื้อ',
           disabled: true,
           href: '/store/order',
-        }
+        },
       ],
     }
   },
@@ -442,7 +466,10 @@ export default {
     },
     async btnCancelOrder() {
       try {
-        const respo = await this.$axios.patch(`/order/store/cancel-order/${this.$route.params.id}`, this.cancelData)
+        const respo = await this.$axios.patch(
+          `/order/store/cancel-order/${this.$route.params.id}`,
+          this.cancelData
+        )
         setTimeout(() => {
           this.snackbar = true
           this.text = 'ยกเลิกคำสั่งซื้อแล้ว'
@@ -450,8 +477,7 @@ export default {
           this.dialog = false
           this.getOrder()
           this.getTransport()
-        }, respo);
-
+        }, respo)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)
