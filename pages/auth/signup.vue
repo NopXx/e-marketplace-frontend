@@ -113,7 +113,7 @@
                 <v-row>
                   <v-col class="grow">
                     {{
-                      `${errorMessage.data.message} : ${errorMessage.status}`
+                      `${errorMessage}`
                     }}</v-col
                   >
                 </v-row>
@@ -129,6 +129,7 @@
 <script>
 export default {
   name: 'SignUp',
+  layout: 'LoginLayout',
   data() {
     return {
       singup: {
@@ -176,7 +177,7 @@ export default {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e.response)
-        this.errorMessage = e.response
+        this.errorMessage = "เบอร์โทรศัพท์นี้มีการใช้งานแล้ว"
         this.errorStatus = true
         this.alert = true
         this.loading = false

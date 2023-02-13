@@ -83,6 +83,7 @@ export default {
         { text: 'ตะกร้า', icon: 'mdi-cart-variant', to: 'cart' },
         { text: 'คำสั่งซื้อ', icon: 'mdi-basket-outline', to: 'order' },
         { text: 'สินค้าที่ถูกใจ', icon: 'mdi-heart', to: 'like' },
+        { text: 'ร้านค้า', icon: 'mdi-storefront-edit-outline', to: 'store' },
         { text: 'แก้ไข', icon: 'mdi-cog', to: 'edit' },
       ],
     }

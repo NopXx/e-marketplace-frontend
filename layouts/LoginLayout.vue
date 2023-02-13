@@ -16,7 +16,7 @@
       </v-app>
     </div>
     <v-app v-else>
-      <Navbar :loginshow="false"/>
+      <NavbarLogin :loginshow="false"/>
       <v-main>
         <v-container>
           <Nuxt />
@@ -27,11 +27,11 @@
 </template>
   
   <script>
-import Navbar from '~/components/Navbar.vue'
+import NavbarLogin from '~/components/NavbarLogin.vue'
 export default {
   name: 'LoginLayout',
   // eslint-disable-next-line vue/no-reserved-component-names
-  components: { Navbar },
+  components: { NavbarLogin },
   data() {
     return {
       drawer: true,

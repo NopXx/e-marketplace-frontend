@@ -15,6 +15,7 @@
       </v-avatar>
     </v-badge> -->
     <!-- like product -->
+    <router-link to="/profile/like" class="text-decoration-none">
     <v-tooltip bottom>
       <template #activator="{ on, attrs }">
         <v-avatar
@@ -29,6 +30,7 @@
       </template>
       <span>ติดตาม</span>
     </v-tooltip>
+  </router-link>
     <!-- <v-badge color="#41AB55" overlap content="3" class="mr-5 mt-1">
       <v-avatar color="#ECF7EE" size="40">
         <v-icon color="#41AB55">mdi-basket-outline</v-icon>
@@ -52,6 +54,26 @@
             </v-avatar>
           </template>
           <span>ร้านค้า</span>
+        </v-tooltip>
+      </router-link>
+    </div>
+
+    <!-- admin -->
+    <div v-show="userRole.role_name === 'admin' ? true : false">
+      <router-link to="/admin" class="text-decoration-none">
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-avatar
+              size="40"
+              color="#D5F0DB"
+              class="mr-5 mt-1"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon color="#0EA5E9">mdi-shield-crown-outline</v-icon>
+            </v-avatar>
+          </template>
+          <span>ผู้ดูแลระบบ</span>
         </v-tooltip>
       </router-link>
     </div>
@@ -95,7 +117,7 @@
     <div v-show="loginshow">
       <v-chip label class="ma-2">
         <router-link to="/auth" class="text-decoration-none">
-          <span class="green--text d-none d-sm-flex text-body-1"
+          <span class="primary--text d-none d-sm-flex text-body-1"
             >เข้าสู่ระบบ/สมัครบัญชี</span
           >
         </router-link>
@@ -143,6 +165,8 @@ export default {
 
         respo.data.forEach((val) => {
           if (val.store_id !== null) {
+            this.userRole = val
+          } else {
             this.userRole = val
           }
         })

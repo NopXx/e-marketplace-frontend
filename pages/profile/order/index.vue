@@ -87,15 +87,31 @@
           </div>
         </template>
         <!-- group -->
-        <template #[`group.header`]="{ items }">
+        <template #[`group.header`]="{ items, isOpen, toggle }">
           <th colspan="6">
-            <v-avatar size="35" color="#F8FAFC"
+            <v-icon @click="toggle"
+            >{{ isOpen ? 'mdi-minus' : 'mdi-plus' }}
+          </v-icon>
+          <v-avatar size="35" color="#F8FAFC"
               ><v-icon color="warning">mdi-storefront-outline</v-icon></v-avatar
             >
             ร้านค้า :
-            <v-avatar color="primary" size="35" class="ml-2">{{
-              items[0].store_name[0]
-            }}</v-avatar>
+            <v-avatar
+              v-if="items[0].store_image === null"
+              color="primary"
+              size="35"
+              class="ml-2"
+              >{{ items[0].store_name[0] }}</v-avatar
+            >
+            <v-avatar v-else size="45" class="ml-2">
+              <v-img
+                :src="items[0].store_image"
+                aspect-ratio="1.4"
+                max-height="125"
+                max-width="110"
+                contain
+              ></v-img
+            ></v-avatar>
             {{ items[0].store_name }}
           </th>
         </template>

@@ -17,40 +17,19 @@
       <template #activator="{ on: menu, attrs }">
         <v-tooltip bottom>
           <template #activator="{ on: tooltip }">
-            <!-- <v-badge
-              v-if="cart.length > 0"
-              color="#FF6D59"
-              overlap
-              content="2"
-              class="mr-2 mt-1"
-            >
-              <v-avatar
-                size="40"
-                color="#ECF7EE"
-                class="mr-2 mt-1"
-                v-bind="attrs"
-                v-on="{ ...tooltip, ...menu }"
-              >
-                <v-icon color="#41AB55">mdi-cart-variant</v-icon>
-              </v-avatar>
-            </v-badge> -->
-            <v-badge
-              color="#FF6D59"
-              overlap
-              :content="cart_number.length"
-              class="mr-2 mt-1"
-            >
             <v-avatar
               size="40"
               color="#ECF7EE"
               class="mr-2 mt-1"
               v-bind="attrs"
               v-on="{ ...tooltip, ...menu }"
-              @click="getCart(); getCartNumber();"
+              @click="
+                getCart()
+                getCartNumber()
+              "
             >
               <v-icon color="#41AB55">mdi-cart-variant</v-icon>
             </v-avatar>
-            </v-badge>
           </template>
           <span>ตะกร้าสินค้า</span>
         </v-tooltip>

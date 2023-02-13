@@ -3,13 +3,31 @@
   <div>
     <v-card class="mx-auto rounded-md" min-width="300" color="" flat outlined>
       <div align="center" justify="center">
-        <v-img v-if="!!img" height="250" contain :src="img"></v-img>
+        <v-img v-if="!!img" height="250" contain :src="img">
+          <template #placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
         <v-img
           v-else
           height="300"
           contain
           src="https://res.cloudinary.com/dqolakmsp/image/upload/v1674542994/samples/Img/No-Image-Placeholder.svg_wgjnzw.png"
-        ></v-img>
+        >
+          <template #placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
       </div>
       <v-card-title class="text-truncate">{{ title }}</v-card-title>
       <v-card-title class="mt-n4">{{
@@ -158,7 +176,13 @@
               </v-card-text>
             </div>
             <div v-else>
-              <v-toolbar color="primary" dark>คำเตือน</v-toolbar>
+              <v-toolbar color="primary" dark>
+                คำเตือน 
+                <v-spacer></v-spacer>
+                <v-btn icon dark @click="dialog = false">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn></v-toolbar
+              >
               <v-card-text>
                 <div justify="center">
                   <router-link to="/auth" class="text-decoration-none">
@@ -167,7 +191,7 @@
                 </div>
               </v-card-text>
               <v-card-actions class="justify-end">
-                <v-btn text @click="dialog.value = false">Close</v-btn>
+                <v-btn text @click="dialog = false">ปิด</v-btn>
               </v-card-actions>
             </div>
           </v-card>
