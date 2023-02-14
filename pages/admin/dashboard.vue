@@ -133,7 +133,7 @@ export default {
           if (val.order_user_cancel === 1 || val.order_store_cancel === 1) {
             this.order_cancel += 1
           } else if (
-            val.order_status === 0 &&
+            val.order_status !== 3 &&
             val.order_user_cancel === 0 &&
             val.order_store_cancel === 0
           ) {
