@@ -92,6 +92,10 @@ export default {
         // { text: 'ร้านค้า', icon: 'mdi-storefront-edit-outline', to: 'store' },
         // { text: 'แก้ไข', icon: 'mdi-cog', to: 'edit' },
       ],
+      userRole: {
+      store: '',
+      admin: '',
+    },
     }
   },
   async created() {
@@ -121,10 +125,15 @@ export default {
         const respo = await this.$axios.get(`/role`)
 
         respo.data.forEach((val) => {
-          if (val.role_name !== 'admin') {
-            this.$router.push('/')
+          if (val.role_name === 'store') {
+            this.userRole.store = val.role_name
+          } else if (val.role_name === 'admin') {
+            this.userRole.admin = val.role_name
           }
         })
+        if (this.userRole.admin === '') {
+          this.$router.push('/')
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)
