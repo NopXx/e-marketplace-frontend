@@ -16,21 +16,21 @@
     </v-badge> -->
     <!-- like product -->
     <router-link to="/profile/like" class="text-decoration-none">
-    <v-tooltip bottom>
-      <template #activator="{ on, attrs }">
-        <v-avatar
-          size="40"
-          v-bind="attrs"
-          color="#ECF7EE"
-          class="mr-2 mt-1"
-          v-on="on"
-        >
-          <v-icon color="#FF6D59">mdi-cards-heart-outline</v-icon>
-        </v-avatar>
-      </template>
-      <span>ติดตาม</span>
-    </v-tooltip>
-  </router-link>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-avatar
+            size="40"
+            v-bind="attrs"
+            color="#ECF7EE"
+            class="mr-2 mt-1"
+            v-on="on"
+          >
+            <v-icon color="#FF6D59">mdi-cards-heart-outline</v-icon>
+          </v-avatar>
+        </template>
+        <span>ติดตาม</span>
+      </v-tooltip>
+    </router-link>
     <!-- <v-badge color="#41AB55" overlap content="3" class="mr-5 mt-1">
       <v-avatar color="#ECF7EE" size="40">
         <v-icon color="#41AB55">mdi-basket-outline</v-icon>
@@ -39,7 +39,7 @@
     <!-- cart -->
     <Cart />
     <!-- store -->
-    <div v-show="userRole.role_name === 'store' ? true : false">
+    <div v-show="userRole.store === 'store' ? true : false">
       <router-link to="/store" class="text-decoration-none">
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -59,7 +59,7 @@
     </div>
 
     <!-- admin -->
-    <div v-show="userRole.role_name === 'admin' ? true : false">
+    <div v-show="userRole.admin === 'admin' ? true : false">
       <router-link to="/admin" class="text-decoration-none">
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -145,7 +145,10 @@ export default {
       { title: 'Logout', to: '/logout' },
     ],
     userData: [],
-    userRole: [],
+    userRole: {
+      store: '',
+      admin: '',
+    },
   }),
   async created() {
     await this.getRole()
@@ -164,10 +167,10 @@ export default {
         const respo = await this.$axios.get(`role`)
 
         respo.data.forEach((val) => {
-          if (val.store_id !== null) {
-            this.userRole = val
-          } else {
-            this.userRole = val
+          if (val.role_name === 'store') {
+            this.userRole.store = val.role_name
+          } else if (val.role_name === 'admin') {
+            this.userRole.admin = val.role_name
           }
         })
       } catch (e) {
