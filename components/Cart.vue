@@ -59,7 +59,7 @@
           </v-list-item>
           <v-card-actions>
             <v-list rounded>
-              <v-list-item to="profile">
+              <v-list-item to="/profile">
                 <v-list-item-group color="success">
                   <v-list-item-content>
                     <v-list-item-title>แสดงทั้งหหมด</v-list-item-title>
