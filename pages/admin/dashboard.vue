@@ -2,10 +2,10 @@
   <div>
     <v-row>
       <v-col cols="12" md="4">
-        <v-card>
+        <v-card :loading="load_data">
           <v-card-text>
-            <v-card-title> ผู้ใช้ทั้งหมด {{ user_n }} </v-card-title>
-            <v-list>
+            <v-card-title> ผู้ใช้ทั้งหมด {{ !load_data ? user_n : '' }} </v-card-title>
+            <v-list v-show="!load_data">
               <!-- order ok -->
               <v-list-item>
                 <v-list-item-icon>
@@ -41,12 +41,12 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="4">
-        <v-card>
+        <v-card :loading="load_data">
           <v-card-text>
             <v-card-title>
-              คำสั่งซื้อทั้งหมด {{ orderData.length }}
+              คำสั่งซื้อทั้งหมด {{ !load_data ? orderData.length : '' }}
             </v-card-title>
-            <v-list>
+            <v-list v-show="!load_data">
               <!-- order ok -->
               <v-list-item>
                 <v-list-item-icon>
@@ -101,11 +101,14 @@ export default {
       order_wait: 0,
       order_cancel: 0,
       orderData: '',
+      load_data: false,
     }
   },
   async created() {
+    this.load_data = true
     await this.getUserRole()
     await this.getOrder()
+    this.load_data = false
   },
   methods: {
     async getUserRole() {

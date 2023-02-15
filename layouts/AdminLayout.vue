@@ -95,6 +95,7 @@ export default {
     }
   },
   async created() {
+    this.overlay = true
     await this.getRole()
     await this.getUser()
   },
