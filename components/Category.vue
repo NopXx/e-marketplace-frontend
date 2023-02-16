@@ -61,8 +61,8 @@ export default {
   data: () => ({
     type: [],
   }),
-  created() {
-    this.getProductType()
+  async created() {
+    await this.getProductType()
   },
   methods: {
     async getProductType() {

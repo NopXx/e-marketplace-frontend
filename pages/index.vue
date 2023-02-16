@@ -55,9 +55,8 @@ export default {
       product: [],
     }
   },
-  created() {},
-  mounted() {
-    this.getProduct()
+  async created() {
+    await this.getProduct()
   },
   methods: {
     async getProduct() {
