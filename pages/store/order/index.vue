@@ -5,7 +5,7 @@
       <v-card-title>
         คำสั่งซื้อ
         <v-spacer></v-spacer>
-        <v-btn v-show="order.length > 0 ? true : false" outlined color="primary" class="mx-2" @click="download">
+        <v-btn v-show="order.length > 0 ? true : false" outlined color="primary" :loading="loadbtn" class="mx-2" @click="download">
           <v-icon>mdi-microsoft-excel</v-icon>
           ดาวน์โหลด
         </v-btn>
@@ -210,6 +210,7 @@ export default {
           href: '/order',
         },
       ],
+      loadbtn: false,
     }
   },
   async created() {
@@ -248,6 +249,7 @@ export default {
       }
     },
     async download() {
+      this.loadbtn = true
       try {
         const respo = await this.$axios.get(`/report`)
         setTimeout(() => {
@@ -259,6 +261,7 @@ export default {
           link.href = baseURL + '/download/' + links
           link.download = links
           link.click()
+          this.loadbtn = false
         }, respo)
         // eslint-disable-next-line no-console
         console.log(respo)
