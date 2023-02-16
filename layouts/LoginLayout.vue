@@ -42,7 +42,7 @@ export default {
     this.overlay = true
     setTimeout(() => {
       this.overlay = false
-    }, 1500)
+    }, 500)
   },
 }
 </script>

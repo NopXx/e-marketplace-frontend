@@ -1,7 +1,19 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <v-card class="mx-auto rounded-md" min-width="300" color="" flat outlined>
+    <v-card
+      class="mx-auto rounded-md"
+      min-width="300"
+      color=""
+      flat
+      outlined
+      @click="
+        checkFollow()
+        checkCart()
+        getProductImage()
+        dialog = true
+      "
+    >
       <div align="center" justify="center">
         <v-img v-if="!!img" height="250" contain :src="img">
           <template #placeholder>
@@ -56,6 +68,7 @@
           @click="
             checkFollow()
             checkCart()
+            getProductImage()
             dialog = true
           "
         >
@@ -68,7 +81,7 @@
           max-width="600"
         >
           <v-card>
-            <div v-if="$auth.loggedIn">
+            <div>
               <v-toolbar color="primary" dark
                 >เพิ่มเข้าตะกร้า
                 <v-spacer></v-spacer>
@@ -80,7 +93,61 @@
               <v-card-text>
                 <v-list-item>
                   <v-list-item-content>
-                    <v-img v-if="!!img" height="250" contain :src="img"></v-img>
+                    <v-carousel
+                      v-if="!!img"
+                      v-model="model"
+                      height="300"
+                      cycle
+                      hide-delimiters
+                      :show-arrows="image.length > 1 ? true : false"
+                    >
+                      <v-carousel-item
+                        v-for="(item, i) in image"
+                        :key="i"
+                        reverse-transition="fade-transition"
+                        transition="fade-transition"
+                      >
+                        <v-row
+                          class="fill-height"
+                          align="center"
+                          justify="center"
+                        >
+                          <v-img height="250" contain :src="item.image">
+                            <template #placeholder>
+                              <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                              >
+                                <v-progress-circular
+                                  indeterminate
+                                  color="grey lighten-5"
+                                ></v-progress-circular>
+                              </v-row>
+                            </template>
+                          </v-img>
+                        </v-row>
+                      </v-carousel-item>
+                    </v-carousel>
+                    <v-img
+                      v-else
+                      height="300"
+                      contain
+                      src="https://res.cloudinary.com/dqolakmsp/image/upload/v1674542994/samples/Img/No-Image-Placeholder.svg_wgjnzw.png"
+                    >
+                      <template #placeholder>
+                        <v-row
+                          class="fill-height ma-0"
+                          align="center"
+                          justify="center"
+                        >
+                          <v-progress-circular
+                            indeterminate
+                            color="grey lighten-5"
+                          ></v-progress-circular>
+                        </v-row>
+                      </template>
+                    </v-img>
                     <v-list-item-title class="text-h5">{{
                       title
                     }}</v-list-item-title>
@@ -93,7 +160,7 @@
                       {{ Number(number.toFixed(1)).toLocaleString() }}
                       ชิ้น
                     </v-list-item-subtitle>
-                    <v-list-item-subtitle>
+                    <v-list-item-subtitle v-show="$auth.loggedIn">
                       <v-btn
                         v-if="followProduct.length === 0"
                         class="mt-2"
@@ -115,7 +182,10 @@
                         <v-icon dark right> mdi-cards-heart </v-icon>
                       </v-btn>
                     </v-list-item-subtitle>
-                    <v-list-item-subtitle class="text-h6 mt-4">
+                    <v-list-item-subtitle
+                      v-show="$auth.loggedIn"
+                      class="text-h6 mt-4"
+                    >
                       <v-icon color="green" @click="decrement">
                         mdi-minus
                       </v-icon>
@@ -129,7 +199,7 @@
                   </v-list-item-content>
                 </v-list-item>
 
-                <v-card-actions>
+                <v-card-actions v-if="$auth.loggedIn">
                   <div v-if="CartProduct.length > 0 && bpm === 0">
                     <v-btn
                       class="mx-2 mt-n3"
@@ -173,26 +243,16 @@
                     </v-btn>
                   </div>
                 </v-card-actions>
-              </v-card-text>
-            </div>
-            <div v-else>
-              <v-toolbar color="primary" dark>
-                คำเตือน 
-                <v-spacer></v-spacer>
-                <v-btn icon dark @click="dialog = false">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn></v-toolbar
-              >
-              <v-card-text>
-                <div justify="center">
+                <v-card-actions v-else>
                   <router-link to="/auth" class="text-decoration-none">
-                    <v-btn>เข้าสู่ระบบ</v-btn>
+                    <v-btn color="green">เข้าสู่ระบบ</v-btn>
                   </router-link>
-                </div>
+                  <v-spacer></v-spacer>
+                  <v-btn outlined color="error" @click="dialog = false"
+                    >ปิด</v-btn
+                  >
+                </v-card-actions>
               </v-card-text>
-              <v-card-actions class="justify-end">
-                <v-btn text @click="dialog = false">ปิด</v-btn>
-              </v-card-actions>
             </div>
           </v-card>
         </v-dialog>
@@ -251,6 +311,8 @@ export default {
     snackbar: false,
     text: '',
     timeout: 2000,
+    image: [],
+    model: 0,
   }),
   methods: {
     decrement() {
@@ -319,6 +381,14 @@ export default {
         // eslint-disable-next-line no-console
         console.log(e)
       }
+    },
+    async getProductImage() {
+      try {
+        const respo = await this.$axios.get(`/image/product/${this.id}`)
+        setTimeout(() => {
+          this.image = respo.data
+        }, respo)
+      } catch (e) {}
     },
     async addCart() {
       try {

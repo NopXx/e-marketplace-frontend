@@ -99,11 +99,11 @@ export default {
   },
   async created() {
     this.overlay = true
-    setTimeout(() => {
-      this.overlay = false
-    }, 1000)
     await this.getRole()
     await this.getStore()
+    setTimeout(() => {
+      this.overlay = false
+    }, 500)
   },
   methods: {
     async getRole() {

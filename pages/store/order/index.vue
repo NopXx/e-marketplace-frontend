@@ -3,14 +3,14 @@
     <v-breadcrumbs :items="path" large></v-breadcrumbs>
     <v-card>
       <v-card-title>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ค้นหาข้อมูล"
-          single-line
-          hide-details
-        ></v-text-field>
+        คำสั่งซื้อ
+        <v-spacer></v-spacer>
+        <v-btn v-show="order.length > 0 ? true : false" outlined color="primary" class="mx-2" @click="download">
+          <v-icon>mdi-microsoft-excel</v-icon>
+          ดาวน์โหลด
+        </v-btn>
       </v-card-title>
+
       <v-data-table
         :headers="headers"
         :items="order"
@@ -21,6 +21,16 @@
         class="elevation-1"
         loading-text="กำลังโหลดข้อมูล"
       >
+        <template #top>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="ค้นหาข้อมูล"
+            class="mb-2"
+            single-line
+            hide-details
+          ></v-text-field>
+        </template>
         <!-- product -->
         <template #[`item.image`]="{ item }">
           <v-row justify="start" align="center">
@@ -230,6 +240,28 @@ export default {
           this.order = respo.data
           this.loadingdata = false
         }, respo)
+        // eslint-disable-next-line no-console
+        console.log(this.order)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e)
+      }
+    },
+    async download() {
+      try {
+        const respo = await this.$axios.get(`/report`)
+        setTimeout(() => {
+          const baseURL = respo.config.baseURL
+          const links = respo.data.path
+          location.href = baseURL
+          // eslint-disable-next-line no-console
+          const link = document.createElement('a')
+          link.href = baseURL + '/download/' + links
+          link.download = links
+          link.click()
+        }, respo)
+        // eslint-disable-next-line no-console
+        console.log(respo)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)
