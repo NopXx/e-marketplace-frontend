@@ -90,7 +90,7 @@
                   ></v-file-input>
                 </v-col>
                 <v-col>
-                  <v-btn v-if="!!file" color="primary" :loading="loading1" @click="upload">
+                  <v-btn v-if="file !== null" color="primary" :loading="loading1" @click="upload">
                     อัพโหลด
                   </v-btn>
                   <v-btn v-else disabled color="primary" :loading="loading1">
@@ -180,7 +180,7 @@
                     <v-card>
                       <v-card-title class="text-h5"> คำเตือน </v-card-title>
                       <v-card-text class="text-body-1">
-                        ต้องการลบรูปนี้ ? {{ img_id }}
+                        ต้องการลบรูปนี้ ?
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -194,6 +194,7 @@
                         <v-btn
                           color="red darken-1"
                           text
+                          :loading="btnloading"
                           @click="delImage(item.img_id)"
                         >
                           ตกลง
@@ -286,7 +287,8 @@ export default {
       dialog: false,
       img_id: '',
       text: '',
-      file: {},
+      file: null,
+      btnloading: false,
     }
   },
   async created() {
@@ -357,7 +359,7 @@ export default {
         setTimeout(() => {
           this.loading1 = false
           this.getProductImage()
-          this.file = {}
+          this.file = null
         }, response)
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -391,6 +393,7 @@ export default {
       this.img_id = imgid
     },
     async delImage(imgid) {
+      this.btnloading = true
       try {
         const respo = await this.$axios.delete(`/image/delete`, {
           data: { id: imgid },
@@ -400,10 +403,12 @@ export default {
           this.getProductImage()
           this.text = 'ลบข้อมูลแล้ว'
           this.snackbar = true
+          this.btnloading = false
         }, respo)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)
+        this.btnloading = false
       }
     },
     async save() {
