@@ -44,6 +44,7 @@
                 </v-list-item>
                 <v-divider class="my-2"></v-divider>
                 <v-list rounded>
+                  <v-list-item-title class="mb-2">ข้อมูลส่วนตัว</v-list-item-title>
                   <v-list-item-group v-model="selectedItem" color="primary">
                     <v-list-item
                       v-for="(item, i) in items"

@@ -3,13 +3,19 @@
     <v-breadcrumbs :items="path" large></v-breadcrumbs>
     <v-card>
       <v-card-title>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ค้นหาข้อมูล"
-          single-line
-          hide-details
-        ></v-text-field>
+        คำสั่งซื้อ
+        <v-spacer></v-spacer>
+        <v-btn
+          v-show="order.length > 0 ? true : false"
+          outlined
+          color="primary"
+          :loading="loadbtn"
+          class="mx-2"
+          @click="download"
+        >
+          <v-icon>mdi-microsoft-excel</v-icon>
+          ดาวน์โหลด
+        </v-btn>
       </v-card-title>
       <v-data-table
         :headers="headers"
@@ -21,6 +27,16 @@
         group-by="store_name"
         loading-text="กำลังโหลดข้อมูล"
       >
+        <template #top>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="ค้นหาข้อมูล"
+            class="mb-2"
+            single-line
+            hide-details
+          ></v-text-field>
+        </template>
         <!-- product -->
         <template #[`item.image`]="{ item }">
           <v-row justify="start" align="center">
@@ -90,9 +106,9 @@
         <template #[`group.header`]="{ items, isOpen, toggle }">
           <th colspan="6">
             <v-icon @click="toggle"
-            >{{ isOpen ? 'mdi-minus' : 'mdi-plus' }}
-          </v-icon>
-          <v-avatar size="35" color="#F8FAFC"
+              >{{ isOpen ? 'mdi-minus' : 'mdi-plus' }}
+            </v-icon>
+            <v-avatar size="35" color="#F8FAFC"
               ><v-icon color="warning">mdi-storefront-outline</v-icon></v-avatar
             >
             ร้านค้า :
@@ -228,6 +244,7 @@ export default {
           href: '/order',
         },
       ],
+      loadbtn: false,
     }
   },
   async created() {
@@ -298,6 +315,28 @@ export default {
           this.snackbar = true
           this.text = 'แก้ไขข้อมูลแล้ว'
         }, respo)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e)
+      }
+    },
+    async download() {
+      this.loadbtn = true
+      try {
+        const respo = await this.$axios.get(`/report/user`)
+        setTimeout(() => {
+          const baseURL = respo.config.baseURL
+          const links = respo.data.path
+          location.href = baseURL
+          // eslint-disable-next-line no-console
+          const link = document.createElement('a')
+          link.href = baseURL + '/download/' + links
+          link.download = links
+          link.click()
+          this.loadbtn = false
+        }, respo)
+        // eslint-disable-next-line no-console
+        console.log(respo)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)

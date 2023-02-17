@@ -42,23 +42,30 @@
         </v-img>
       </div>
       <v-card-title class="text-truncate">{{ title }}</v-card-title>
-      <v-card-title class="mt-n4">{{
-        Number(price.toFixed(1)).toLocaleString()
-      }}</v-card-title>
+      <v-card-title class="mt-n4"
+        >{{ Number(price.toFixed(1)).toLocaleString() }} บาท</v-card-title
+      >
       <v-card-text>
-        <v-rating
-          v-model="rating"
-          background-color="orange lighten-3"
-          color="orange"
-          dense
-          half-increments
-          hover
-          readonly
-          size="18"
-        ></v-rating>
-        <span class="grey--text text--lighten-2 text-caption mr-2">
-          ({{ rating }})
-        </span>
+        ร้านค้า :
+        <v-avatar v-if="store === null" color="primary" size="35" class="ml-2"
+          ><v-img
+            src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+            aspect-ratio="1.4"
+            max-height="125"
+            max-width="110"
+            contain
+          ></v-img
+        ></v-avatar>
+        <v-avatar v-else size="45" class="ml-2">
+          <v-img
+            :src="store"
+            aspect-ratio="1.4"
+            max-height="125"
+            max-width="110"
+            contain
+          ></v-img
+        ></v-avatar>
+        {{ storename }}
       </v-card-text>
       <v-card-actions class="my-4">
         <v-btn
@@ -151,6 +158,32 @@
                     <v-list-item-title class="text-h5">{{
                       title
                     }}</v-list-item-title>
+                    <v-list-item-subtitle class="text-body-1 my-3">
+                      ร้านค้า :
+                      <v-avatar
+                        v-if="store === null"
+                        color="primary"
+                        size="35"
+                        class="ml-2"
+                        ><v-img
+                          src="https://res.cloudinary.com/dqolakmsp/image/upload/v1676308580/assets/e-shop-no-image_uuubeq.png"
+                          aspect-ratio="1.4"
+                          max-height="125"
+                          max-width="110"
+                          contain
+                        ></v-img
+                      ></v-avatar>
+                      <v-avatar v-else size="45" class="ml-2">
+                        <v-img
+                          :src="store"
+                          aspect-ratio="1.4"
+                          max-height="125"
+                          max-width="110"
+                          contain
+                        ></v-img
+                      ></v-avatar>
+                      {{ storename }}
+                    </v-list-item-subtitle>
                     <v-list-item-subtitle class="text-body-1 my-3">
                       ราคา
                       {{ Number(price.toFixed(1)).toLocaleString() }}
@@ -294,6 +327,14 @@ export default {
       default: 0,
     },
     img: {
+      type: String,
+      default: '',
+    },
+    store: {
+      type: String,
+      default: '',
+    },
+    storename: {
       type: String,
       default: '',
     },

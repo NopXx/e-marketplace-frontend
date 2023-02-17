@@ -40,6 +40,8 @@
             <Product
               :id="item.product_id"
               :img="item.image"
+              :store="item.store_image"
+              :storename="item.store_name"
               :price="item.product_price"
               :title="item.product_name"
               :number="item.product_number"

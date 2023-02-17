@@ -212,7 +212,7 @@
                             "
                           >
                             <td>
-                              <v-btn outlined color="accent" class="ma-2">
+                              <v-btn outlined color="primary" class="ma-2">
                                 กำลังส่งสินค้า
                               </v-btn>
                             </td>

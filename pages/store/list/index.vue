@@ -25,7 +25,10 @@
           <v-img
             v-if="!!item['image']"
             :src="item['image']"
-            aspect-ratio="1"
+            aspect-ratio="1.4"
+            max-height="125"
+            max-width="110"
+            contain
           ></v-img>
           <v-img
             v-else
@@ -121,11 +124,6 @@ export default {
       search: '',
       loadingdata: false,
       headers: [
-        {
-          text: 'ไอดีสินค้า',
-          align: 'center',
-          value: 'product_id',
-        },
         {
           text: 'ชื่อสินค้า',
           value: 'product_name',

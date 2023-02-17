@@ -122,7 +122,7 @@
               item.order_store_cancel === 0
             "
             outlined
-            color="info"
+            color="secondary"
           >
             กำลังจัดส่งสินค้า
           </v-btn>
@@ -251,7 +251,7 @@ export default {
     async download() {
       this.loadbtn = true
       try {
-        const respo = await this.$axios.get(`/report`)
+        const respo = await this.$axios.get(`/report/store`)
         setTimeout(() => {
           const baseURL = respo.config.baseURL
           const links = respo.data.path
