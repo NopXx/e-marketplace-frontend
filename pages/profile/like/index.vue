@@ -62,7 +62,7 @@
       <!-- ----------------------- -->
       <template #[`item.actions`]="{ item }">
         <v-row>
-          <v-col cols="12" md="2">
+          <v-col v-show="item.product_number > 0" cols="12" md="2">
             <quick-cart
               :id="item.product_id"
               :img="item.image"
