@@ -57,7 +57,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'https://cooperative-boa-coat.cyclic.app/api',
+    baseURL: 'e-marketplace-backend-production.up.railway.app/api',
     credentials: false,
     headers: {
       Accept: 'application/json'
